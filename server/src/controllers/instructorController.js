@@ -20,9 +20,7 @@ const loginSchema = Joi.object({
 // =============================================================================
 function publicProfile(doc) {
   return {
-    id: doc._id.toString(),
     name: doc.name,
-    username: doc.username,
     department: doc.department,
     role: doc.role
   };
