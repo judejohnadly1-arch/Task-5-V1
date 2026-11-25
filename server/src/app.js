@@ -5,12 +5,27 @@ import authRoutes from './routes/auth.js';
 import reviewRoutes from './routes/reviews.js';
 import userRoutes from './routes/users.js';
 import instructorRoutes from './routes/instructors.js';
+import mongoSanitize from 'express-mongo-sanitize';
 
 const app = express();
 
 app.use(morgan('dev'));
 app.use(cors({ origin: 'http://localhost:5175', credentials: false }));
 app.use(express.json());
+app.use((req, res, next) => {
+  if (
+    mongoSanitize.has(req.body || {}) ||
+    mongoSanitize.has(req.query || {})
+  ) {
+    return res.status(400).json({
+      message: 'MongoDB operators are not allowed'
+    });
+  }
+
+  next();
+});
+
+app.use(mongoSanitize());
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 

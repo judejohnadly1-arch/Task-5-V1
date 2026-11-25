@@ -93,7 +93,7 @@ you send. If you send **objects** instead of **strings**, you send MongoDB query
   ```json
   { "username": { "$ne": null }, "password": { "$ne": null } }
   ```
-- curl:
+- curl:`
   ```bash
   curl -X POST http://localhost:4000/api/instructors/login \
     -H "Content-Type: application/json" \
