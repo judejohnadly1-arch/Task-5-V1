@@ -110,8 +110,22 @@ export async function searchInstructors(req, res, next) {
       });
     }
 
+    const filter = {};
+
+    if (value.name !== undefined) {
+      filter.name = value.name;
+    }
+
+    if (value.department !== undefined) {
+      filter.department = value.department;
+    }
+
+    if (value.role !== undefined) {
+      filter.role = value.role;
+    }
+
     const instructors = await Instructor
-      .find(value)
+      .find(filter)
       .select('name department role')
       .lean();
 
